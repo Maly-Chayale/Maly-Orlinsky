@@ -1,69 +1,55 @@
-
 name: Node.js CI
 
 on:
-  # push:
-  #   branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
-  workflow_call:  # הופך את ה-workflow ל-Reusable
-    inputs:
-      node-versions:
-        description: 'Node.js versions to run the matrix on'
-        required: false
-        default: ["18", "20", "22"]
-        type: array
+  workflow_call:
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ${{ inputs.node-versions }}
+        node-version: [18, 20, 22]
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        run: npm install
-      - name: Lint
-        run: npm run lint
+
+      - run: npm install
+      - run: npm run lint
 
   test:
     runs-on: ubuntu-latest
     needs: lint
     strategy:
       matrix:
-        node-version: ${{ inputs.node-versions }}
+        node-version: [18, 20, 22]
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        run: npm install
-      - name: Test
-        run: npm test
+
+      - run: npm install
+      - run: npm test
 
   build:
     runs-on: ubuntu-latest
-    needs: [test, lint]
+    needs: test
     strategy:
       matrix:
-        node-version: ${{ inputs.node-versions }}
+        node-version: [18, 20, 22]
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
+
+      - run: npm install
+      - run: npm run build
