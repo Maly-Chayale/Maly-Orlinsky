@@ -52,11 +52,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - run: npm install
-      
+
       - run: npm run build
 
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@0.24.0
+        uses: aquasecurity/trivy-action@latest
         with:
           scan-type: fs
           scan-ref: .
