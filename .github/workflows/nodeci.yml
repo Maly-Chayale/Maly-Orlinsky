@@ -50,6 +50,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          # node-version: 20
 
       - run: npm install
 
@@ -64,7 +65,14 @@ jobs:
             --severity CRITICAL,HIGH \
             --exit-code 1
 
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: dist-files-${{ matrix.node-version }}
+      #     path: dist
+
       - name: Upload artifact
+        if: matrix.node-version == 20
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
