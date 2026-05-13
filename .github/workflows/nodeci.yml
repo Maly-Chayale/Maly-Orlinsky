@@ -63,3 +63,9 @@ jobs:
             fs /project \
             --severity CRITICAL,HIGH \
             --exit-code 1
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: dist
