@@ -1,0 +1,20 @@
+{
+  "name": "devops",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+  "lint": "eslint .",
+  "test": "jest",
+  "build": "babel src -d dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.29.0",
+    "eslint": "^10.3.0",
+    "jest": "^30.4.2"
+  }
+}
